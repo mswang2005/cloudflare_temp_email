@@ -65,9 +65,9 @@ jobs:
           fi
 
           if [ "$debug_mode" = "true" ]; then
-            pnpm run deploy
+            pnpm run deploy -- --keep-vars
           else
-            if pnpm run deploy >/dev/null 2>&1; then
+            if pnpm run deploy -- --keep-vars >/dev/null 2>&1; then
               echo "Deploy succeeded"
             else
               code=$?
@@ -81,3 +81,4 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           # ✅ 将 secret 映射到环境变量中
           WRANGLER_TOML_CONTENT: ${{ secrets.BACKEND_TOML }}
+
