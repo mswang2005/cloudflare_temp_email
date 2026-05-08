@@ -3,7 +3,7 @@ import { Jwt } from 'hono/utils/jwt'
 
 import i18n from '../i18n'
 import { getBooleanValue } from '../utils'
-import { newAddress, handleListQuery, generateRandomName } from '../common'
+import { newAddress, handleListQuery } from '../common'
 
 const listAddresses = async (c: Context<HonoCustomType>) => {
     const { limit, offset, query, sort_by, sort_order } = c.req.query();
@@ -46,11 +46,10 @@ const listAddresses = async (c: Context<HonoCustomType>) => {
 };
 
 const createNewAddress = async (c: Context<HonoCustomType>) => {
-    let { name, domain, enablePrefix, enableRandomSubdomain } = await c.req.json();
+    const { name, domain, enablePrefix, enableRandomSubdomain } = await c.req.json();
     const msgs = i18n.getMessagesbyContext(c);
-    // Allow empty name in admin create flow, generate one server-side.
-    if (!name || !name.toString().trim()) {
-        name = generateRandomName(c);
+    if (!name) {
+        return c.text(msgs.RequiredFieldMsg, 400)
     }
     try {
         const res = await newAddress(c, {
