@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "postinstall": "node scripts/ensure-cloudflare-build-config.mjs",
     "dev": "wrangler dev",
     "lint": "eslint src",
     "deploy": "wrangler deploy --minify",
