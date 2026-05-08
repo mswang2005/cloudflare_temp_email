@@ -36,7 +36,7 @@ watch(canUseRandomSubdomain, (enabled) => {
 })
 
 const newEmail = async () => {
-    if (!emailName.value || !emailDomain.value) {
+    if (!emailDomain.value) {
         message.error(t('fillInAllFields'))
         return
     }
@@ -46,7 +46,7 @@ const newEmail = async () => {
             body: JSON.stringify({
                 enablePrefix: enablePrefix.value,
                 enableRandomSubdomain: enableRandomSubdomain.value,
-                name: emailName.value,
+                name: (emailName.value || '').trim(),
                 domain: emailDomain.value,
             })
         })
@@ -81,11 +81,14 @@ onMounted(async () => {
                     <n-input-group-label v-if="enablePrefix && openSettings.prefix">
                         {{ openSettings.prefix }}
                     </n-input-group-label>
-                    <n-input v-model:value="emailName" />
+                    <n-input v-model:value="emailName" :placeholder="t('leaveBlankToRandom')" />
                     <n-input-group-label>@</n-input-group-label>
                     <n-select v-model:value="emailDomain" :consistent-menu-width="false"
                         :options="openSettings.domains" />
                 </n-input-group>
+                <p style="margin: 8px 0 0; opacity: 0.75;">
+                    {{ t('leaveBlankToRandom') }}
+                </p>
             </n-form-item-row>
             <n-form-item-row v-if="canUseRandomSubdomain">
                 <n-checkbox v-model:checked="enableRandomSubdomain">

@@ -1993,8 +1993,12 @@ export const MESSAGE_REGISTRY = {
       "zh": "启用随机子域名"
     },
     "fillInAllFields": {
-      "en": "Please fill in all fields",
-      "zh": "请填写完整信息"
+      "en": "Please select a domain",
+      "zh": "请选择邮箱域名"
+    },
+    "leaveBlankToRandom": {
+      "en": "Leave name blank to auto-generate a random address name.",
+      "zh": "用户名留空将自动生成随机名称。"
     },
     "linkWithAddressCredential": {
       "en": "Open to auto login email link",
